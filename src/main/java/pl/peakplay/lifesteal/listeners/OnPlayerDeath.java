@@ -6,7 +6,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+
 import pl.peakplay.lifesteal.main.Main;
+
 import org.bukkit.BanList;
 
 public class OnPlayerDeath implements Listener {

@@ -28,6 +28,7 @@ public class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+    	instance = this;
         Bukkit.getPluginManager().registerEvents(this, this);
         getLogger().info("OpenLifesteal plugin by ahhuser enabled.");
         getServer().getPluginManager().registerEvents(new OnPlayerJoin(), this);
