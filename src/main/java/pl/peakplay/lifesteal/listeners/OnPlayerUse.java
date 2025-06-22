@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import pl.peakplay.lifesteal.main.Main;
+import pl.peakplay.lifesteal.utils.ConfigUtils;
 
 public class OnPlayerUse implements Listener{
 	
@@ -37,8 +38,9 @@ public class OnPlayerUse implements Listener{
         String uuid = player.getUniqueId().toString();
 
         int currentHearts = config.getInt("players." + uuid + ".hearts", 10);
-
-        if (currentHearts >= 20) {
+        String maxHearts = ConfigUtils.getKey("maxHearts");
+        int maxHeartsInt = Integer.parseInt(maxHearts);
+        if (currentHearts >= maxHeartsInt) {
             player.sendMessage("§cMasz już maksymalną liczbę serc!");
             return;
         }

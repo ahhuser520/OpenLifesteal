@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import pl.peakplay.lifesteal.main.Main;
+import pl.peakplay.lifesteal.utils.ConfigUtils;
 
 public class OnPlayerCombat implements Listener {
 
@@ -21,7 +22,9 @@ public class OnPlayerCombat implements Listener {
 
         int hearts = config.getInt("players." + killerUUID + ".hearts", 10);
 
-        if (hearts < 20) {
+        String maxHearts = ConfigUtils.getKey("maxHearts");
+        int maxHeartsInt = Integer.parseInt(maxHearts);
+        if (hearts >= maxHeartsInt) {
             hearts += 1;
         }
 

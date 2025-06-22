@@ -1,6 +1,7 @@
 package pl.peakplay.lifesteal.main;
 
 import pl.peakplay.lifesteal.listeners.*;
+import pl.peakplay.lifesteal.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -32,6 +33,7 @@ public class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new OnPlayerJoin(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerDeath(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerCombat(), this);
+        ConfigUtils.createDefaultConfig(this);
         createCustomItem();
         createCustomRecipe();
     }
@@ -50,7 +52,7 @@ public class Main extends JavaPlugin implements Listener {
         NamespacedKey key = new NamespacedKey(this, "custom_heart_recipe");
 
         ShapedRecipe recipe = new ShapedRecipe(key, customHeart);
-        recipe.shape("OGO", "NEN", "OGO");
+        recipe.shape("GGG", "GEG", "ONO");
 
         recipe.setIngredient('O', Material.OBSIDIAN);
         recipe.setIngredient('G', Material.GOLD_INGOT);
