@@ -34,6 +34,7 @@ public class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new OnPlayerJoin(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerDeath(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerCombat(), this);
+        getServer().getPluginManager().registerEvents(new OnPlayerUse(), this);
         ConfigUtils.createDefaultConfig(this);
         createCustomItem();
         createCustomRecipe();
