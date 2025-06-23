@@ -1,6 +1,0 @@
-pl\peakplay\lifesteal\main\Main.class
-pl\peakplay\lifesteal\listeners\OnPlayerJoin.class
-pl\peakplay\lifesteal\utils\ConfigUtils.class
-pl\peakplay\lifesteal\listeners\OnPlayerDeath.class
-pl\peakplay\lifesteal\listeners\OnPlayerUse.class
-pl\peakplay\lifesteal\listeners\OnPlayerCombat.class

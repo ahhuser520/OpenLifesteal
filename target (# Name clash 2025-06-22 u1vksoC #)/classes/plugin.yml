@@ -1,6 +1,0 @@
-name: Lifesteal
-version: 1.0
-main: pl.peakplay.lifesteal.main.Main
-api-version: 1.17
-author: PeakPlay
-description: Simple lifesteal plugin
