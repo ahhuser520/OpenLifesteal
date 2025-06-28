@@ -4,3 +4,7 @@ main: pl.peakplay.lifesteal.main.Main
 api-version: 1.17
 author: PeakPlay
 description: Simple lifesteal plugin
+commands:
+  withdraw:
+    description: Withdraw
+    usage: /<command>

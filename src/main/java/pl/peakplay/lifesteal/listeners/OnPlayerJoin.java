@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import pl.peakplay.lifesteal.main.Main;
+import pl.peakplay.lifesteal.utils.LivesUtils;
 
 public class OnPlayerJoin implements Listener {
 
@@ -22,11 +23,7 @@ public class OnPlayerJoin implements Listener {
             Main.getInstance().saveConfig();
         }
 
-        int hearts = config.getInt("players." + uuid + ".hearts", 10);
-
-        double newMaxHealth = hearts * 2.0;
-        if(newMaxHealth != 0) {
-        	player.setMaxHealth(newMaxHealth);
-        }
+        int hearts = LivesUtils.getHearts(player);
+        LivesUtils.setHearts(player, hearts);
     }
 }

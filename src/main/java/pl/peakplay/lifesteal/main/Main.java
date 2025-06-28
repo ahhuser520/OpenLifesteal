@@ -1,6 +1,7 @@
 package pl.peakplay.lifesteal.main;
 
 import pl.peakplay.lifesteal.listeners.*;
+import pl.peakplay.lifesteal.commands.*;
 import pl.peakplay.lifesteal.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,7 +25,7 @@ public class Main extends JavaPlugin implements Listener {
         return instance;
     }
 
-    private ItemStack customHeart;
+    public static ItemStack customHeart;
 
     @Override
     public void onEnable() {
@@ -35,6 +36,9 @@ public class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new OnPlayerDeath(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerCombat(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerUse(), this);
+        
+        getCommand("withdraw").setExecutor(new WithdrawCommand());
+       
         ConfigUtils.createDefaultConfig(this);
         createCustomItem();
         createCustomRecipe();

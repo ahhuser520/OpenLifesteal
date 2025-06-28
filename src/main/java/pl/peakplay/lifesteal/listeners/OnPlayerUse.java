@@ -15,6 +15,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import pl.peakplay.lifesteal.main.Main;
 import pl.peakplay.lifesteal.utils.ConfigUtils;
+import pl.peakplay.lifesteal.utils.LivesUtils;
 
 public class OnPlayerUse implements Listener{
 	
@@ -37,7 +38,7 @@ public class OnPlayerUse implements Listener{
         FileConfiguration config = Main.getInstance().getConfig();
         String uuid = player.getUniqueId().toString();
 
-        int currentHearts = config.getInt("players." + uuid + ".hearts", 10);
+        int currentHearts = LivesUtils.getHearts(player);
         String maxHearts = ConfigUtils.getKey("maxHearts");
         int maxHeartsInt = Integer.parseInt(maxHearts);
         if (currentHearts >= maxHeartsInt) {
@@ -46,11 +47,7 @@ public class OnPlayerUse implements Listener{
         }
 
         currentHearts++;
-        config.set("players." + uuid + ".hearts", currentHearts);
-        Main.getInstance().saveConfig();
-
-        double newMaxHealth = currentHearts * 2.0;
-        player.setMaxHealth(newMaxHealth);
+        LivesUtils.setHearts(player, currentHearts);
         player.sendMessage("§aZyskałeś dodatkowe serce!");
 
         item.setAmount(item.getAmount() - 1);
