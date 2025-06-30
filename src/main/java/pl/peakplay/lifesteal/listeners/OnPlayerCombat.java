@@ -31,6 +31,6 @@ public class OnPlayerCombat implements Listener {
             hearts += 1;
         }
 
-        LivesUtils.setHearts(killer, maxHeartsInt);
+        LivesUtils.setHearts(killer, hearts);
     }
 }
