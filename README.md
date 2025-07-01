@@ -22,7 +22,7 @@ OpenLifesteal is a simple and configurable Minecraft server plugin that adds a l
 | `/lifesteal set {username} {amount}` | Sets the exact number of hearts for a player |
 | `/lifesteal revive {username}` | Revives a player |
 
-🔐 All commands require the permission `lifesteal.admin`.
+🔐 All commands require the permission `openlifesteal.admin`.
 
 ---
 

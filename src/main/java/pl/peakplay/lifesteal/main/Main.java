@@ -38,6 +38,7 @@ public class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new OnPlayerUse(), this);
         
         getCommand("withdraw").setExecutor(new WithdrawCommand());
+        getCommand("lifesteal").setExecutor(new LifestealCommand());
        
         ConfigUtils.createDefaultConfig(this);
         createCustomItem();

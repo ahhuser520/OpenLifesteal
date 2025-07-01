@@ -8,3 +8,6 @@ commands:
   withdraw:
     description: Withdraw
     usage: /<command>
+  lifesteal:
+    description: Admin management command
+    usage: /lifesteal <revive/give/set> {username} <amount>
