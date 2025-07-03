@@ -1,76 +1,97 @@
 package pl.peakplay.lifesteal.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pl.peakplay.lifesteal.utils.LangUtils;
 import pl.peakplay.lifesteal.utils.LivesUtils;
 
 public class LifestealCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
         if (!(commandSender instanceof Player)) {
-            commandSender.sendMessage("Ta komenda może być używana tylko przez graczy.");
+            commandSender.sendMessage(LangUtils.getMessage("only-players"));
             return true;
         }
 
         Player playerSender = (Player) commandSender;
 
-        if(!playerSender.isOp() || !playerSender.hasPermission("openlifesteal.admin")){
-            commandSender.sendMessage(ChatColor.RED + "Nie masz pozwolenia na uzycie tej komendy.");
+        if (!playerSender.isOp() || !playerSender.hasPermission("openlifesteal.admin")) {
+            playerSender.sendMessage(LangUtils.getMessage("no-permission"));
             return true;
         }
 
         if (args.length < 1) {
-            commandSender.sendMessage(ChatColor.RED + "Użyj: /lifesteal <give|set|revive> [argumenty]");
+            playerSender.sendMessage(LangUtils.getMessage("invalid-usage"));
             return true;
         }
-        String thisPlayerIsOffline = "Ten gracz jest offline.";
+
         String action = args[0];
-        Player targetedPlayer = Bukkit.getPlayer(args[1]);
 
         try {
             switch (action.toLowerCase()) {
                 case "give":
                     if (args.length != 3) {
-                        playerSender.sendMessage(ChatColor.RED + "Użyj: /lifesteal give {username} {amount}");
+                        playerSender.sendMessage(LangUtils.getMessage("give-usage"));
                         return true;
                     }
-                    if (targetedPlayer == null) {
-                        playerSender.sendMessage(ChatColor.RED + thisPlayerIsOffline);
+
+                    Player giveTarget = Bukkit.getPlayer(args[1]);
+                    if (giveTarget == null) {
+                        playerSender.sendMessage(LangUtils.getMessage("player-offline"));
                         return true;
                     }
-                    LivesUtils.setHearts(targetedPlayer, LivesUtils.getHearts(targetedPlayer) + Integer.parseInt(args[2]));
+
+                    int giveAmount = Integer.parseInt(args[2]);
+                    int newHearts = LivesUtils.getHearts(giveTarget) + giveAmount;
+                    LivesUtils.setHearts(giveTarget, newHearts);
+
+                    playerSender.sendMessage("§aDodano " + giveAmount + " serc graczowi " + giveTarget.getName() + ".");
                     return true;
 
                 case "set":
                     if (args.length != 3) {
-                        playerSender.sendMessage(ChatColor.RED + "Użyj: /lifesteal set {username} {amount}");
+                        playerSender.sendMessage(LangUtils.getMessage("set-usage"));
                         return true;
                     }
-                    if (targetedPlayer == null) {
-                        playerSender.sendMessage(ChatColor.RED + thisPlayerIsOffline);
+
+                    Player setTarget = Bukkit.getPlayer(args[1]);
+                    if (setTarget == null) {
+                        playerSender.sendMessage(LangUtils.getMessage("player-offline"));
                         return true;
                     }
-                    LivesUtils.setHearts(targetedPlayer, Integer.parseInt(args[2]));
+
+                    int setAmount = Integer.parseInt(args[2]);
+                    LivesUtils.setHearts(setTarget, setAmount);
+
+                    playerSender.sendMessage("§aUstawiono " + setAmount + " serc graczowi " + setTarget.getName() + ".");
                     return true;
 
                 case "revive":
                     if (args.length != 2) {
-                        playerSender.sendMessage(ChatColor.RED + "Użyj: /lifesteal revive {username}");
+                        playerSender.sendMessage(LangUtils.getMessage("revive-usage"));
                         return true;
                     }
-                    // TO DO: REVIVE PLAYER
+
+                    Player reviveTarget = Bukkit.getPlayer(args[1]);
+                    if (reviveTarget == null) {
+                        playerSender.sendMessage(LangUtils.getMessage("player-offline"));
+                        return true;
+                    }
+
+                    // TODO: Implementacja revive (np. usunięcie bana + teleport)
+                    playerSender.sendMessage("§aRevive jeszcze niezaimplementowane.");
                     return true;
 
                 default:
-                    playerSender.sendMessage("Nieznana akcja. Użyj: /lifesteal <give|set|revive>");
+                    playerSender.sendMessage(LangUtils.getMessage("unknown-action"));
                     return true;
             }
-        }catch(Exception e){
-            playerSender.sendMessage(ChatColor.RED + "Error: "+e.getMessage());
+        } catch (Exception e) {
+            String msg = LangUtils.getMessage("command-error").replace("{error}", e.getMessage());
+            playerSender.sendMessage(msg);
         }
 
         return true;

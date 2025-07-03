@@ -40,6 +40,7 @@ public class Main extends JavaPlugin implements Listener {
         getCommand("withdraw").setExecutor(new WithdrawCommand());
         getCommand("lifesteal").setExecutor(new LifestealCommand());
        
+        LangUtils.init(this);
         ConfigUtils.createDefaultConfig(this);
         createCustomItem();
         createCustomRecipe();

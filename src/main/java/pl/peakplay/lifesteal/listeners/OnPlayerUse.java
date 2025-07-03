@@ -15,11 +15,12 @@ import org.bukkit.persistence.PersistentDataType;
 
 import pl.peakplay.lifesteal.main.Main;
 import pl.peakplay.lifesteal.utils.ConfigUtils;
+import pl.peakplay.lifesteal.utils.LangUtils;
 import pl.peakplay.lifesteal.utils.LivesUtils;
 
-public class OnPlayerUse implements Listener{
-	
-	@EventHandler
+public class OnPlayerUse implements Listener {
+
+    @EventHandler
     public void onPlayerUse(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
             return;
@@ -32,23 +33,28 @@ public class OnPlayerUse implements Listener{
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return;
 
-        Integer identifier = meta.getPersistentDataContainer().get(new NamespacedKey(Main.getInstance(), "custom_heart"), PersistentDataType.INTEGER);
+        Integer identifier = meta.getPersistentDataContainer().get(
+                new NamespacedKey(Main.getInstance(), "custom_heart"),
+                PersistentDataType.INTEGER
+        );
+
         if (identifier == null || identifier != 1) return;
 
         FileConfiguration config = Main.getInstance().getConfig();
         String uuid = player.getUniqueId().toString();
 
         int currentHearts = LivesUtils.getHearts(player);
-        String maxHearts = ConfigUtils.getKey("maxHearts");
-        int maxHeartsInt = Integer.parseInt(maxHearts);
+        int maxHeartsInt = Integer.parseInt(ConfigUtils.getKey("maxHearts"));
+
         if (currentHearts >= maxHeartsInt) {
-            player.sendMessage("§cMasz już maksymalną liczbę serc!");
+            player.sendMessage(LangUtils.getMessage("max-hearts-reached"));
             return;
         }
 
         currentHearts++;
         LivesUtils.setHearts(player, currentHearts);
-        player.sendMessage("§aZyskałeś dodatkowe serce!");
+
+        player.sendMessage(LangUtils.getMessage("heart-gained"));
 
         item.setAmount(item.getAmount() - 1);
     }
