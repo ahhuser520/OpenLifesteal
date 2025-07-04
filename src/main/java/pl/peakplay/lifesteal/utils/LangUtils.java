@@ -46,6 +46,7 @@ public class LangUtils {
         defaultMessages.put("give-usage", "§cUżyj: /lifesteal give {username} {amount}");
         defaultMessages.put("set-usage", "§cUżyj: /lifesteal set {username} {amount}");
         defaultMessages.put("revive-usage", "§cUżyj: /lifesteal revive {username}");
+        defaultMessages.put("player-not-found", "§cGracz nie zostal znaleziony.");
 
         Yaml yaml = new Yaml();
 

@@ -23,7 +23,7 @@ public class OnPlayerJoin implements Listener {
             Main.getInstance().saveConfig();
         }
 
-        int hearts = LivesUtils.getHearts(player);
-        LivesUtils.setHearts(player, hearts);
+        int hearts = LivesUtils.getHearts(player.getUniqueId());
+        LivesUtils.setHearts(player.getUniqueId(), hearts);
     }
 }

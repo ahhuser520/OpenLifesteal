@@ -19,9 +19,9 @@ public class OnPlayerDeath implements Listener {
         Player player = e.getEntity();
         String uuid = player.getUniqueId().toString();
 
-        int hearts = LivesUtils.getHearts(player);
+        int hearts = LivesUtils.getHearts(player.getUniqueId());
         hearts = Math.max(hearts - 1, 0);
         
-        LivesUtils.setHearts(player, hearts);
+        LivesUtils.setHearts(player.getUniqueId(), hearts);
     }
 }

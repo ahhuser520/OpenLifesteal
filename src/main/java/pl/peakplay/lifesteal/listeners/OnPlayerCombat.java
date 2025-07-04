@@ -25,7 +25,7 @@ public class OnPlayerCombat implements Listener {
         String message = LangUtils.getMessage("heart-stolen").replace("{player}", victim.getName());
         killer.sendMessage(message);
 
-        int hearts = LivesUtils.getHearts(killer);
+        int hearts = LivesUtils.getHearts(killer.getUniqueId());
         String maxHearts = ConfigUtils.getKey("maxHearts");
         int maxHeartsInt = Integer.parseInt(maxHearts);
 
@@ -33,6 +33,6 @@ public class OnPlayerCombat implements Listener {
             hearts += 1;
         }
 
-        LivesUtils.setHearts(killer, hearts);
+        LivesUtils.setHearts(killer.getUniqueId(), hearts);
     }
 }

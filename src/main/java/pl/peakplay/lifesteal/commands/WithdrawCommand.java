@@ -20,14 +20,14 @@ public class WithdrawCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        int hearts = LivesUtils.getHearts(player);
+        int hearts = LivesUtils.getHearts(player.getUniqueId());
 
         if (hearts <= 0) {
             player.sendMessage(LangUtils.getMessage("no-hearts-to-withdraw"));
             return true;
         }
 
-        LivesUtils.setHearts(player, hearts - 1);
+        LivesUtils.setHearts(player.getUniqueId(), hearts - 1);
 
         PlayerInventory inventory = player.getInventory();
         inventory.addItem(Main.customHeart);

@@ -43,7 +43,7 @@ public class OnPlayerUse implements Listener {
         FileConfiguration config = Main.getInstance().getConfig();
         String uuid = player.getUniqueId().toString();
 
-        int currentHearts = LivesUtils.getHearts(player);
+        int currentHearts = LivesUtils.getHearts(player.getUniqueId());
         int maxHeartsInt = Integer.parseInt(ConfigUtils.getKey("maxHearts"));
 
         if (currentHearts >= maxHeartsInt) {
@@ -52,7 +52,7 @@ public class OnPlayerUse implements Listener {
         }
 
         currentHearts++;
-        LivesUtils.setHearts(player, currentHearts);
+        LivesUtils.setHearts(player.getUniqueId(), currentHearts);
 
         player.sendMessage(LangUtils.getMessage("heart-gained"));
 

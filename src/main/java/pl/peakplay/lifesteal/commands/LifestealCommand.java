@@ -1,12 +1,16 @@
 package pl.peakplay.lifesteal.commands;
 
+import org.bukkit.BanList;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pl.peakplay.lifesteal.utils.LangUtils;
 import pl.peakplay.lifesteal.utils.LivesUtils;
+
+import java.util.UUID;
 
 public class LifestealCommand implements CommandExecutor {
     @Override
@@ -45,8 +49,8 @@ public class LifestealCommand implements CommandExecutor {
                     }
 
                     int giveAmount = Integer.parseInt(args[2]);
-                    int newHearts = LivesUtils.getHearts(giveTarget) + giveAmount;
-                    LivesUtils.setHearts(giveTarget, newHearts);
+                    int newHearts = LivesUtils.getHearts(giveTarget.getUniqueId()) + giveAmount;
+                    LivesUtils.setHearts(giveTarget.getUniqueId(), newHearts);
 
                     playerSender.sendMessage("§aDodano " + giveAmount + " serc graczowi " + giveTarget.getName() + ".");
                     return true;
@@ -64,7 +68,7 @@ public class LifestealCommand implements CommandExecutor {
                     }
 
                     int setAmount = Integer.parseInt(args[2]);
-                    LivesUtils.setHearts(setTarget, setAmount);
+                    LivesUtils.setHearts(setTarget.getUniqueId(), setAmount);
 
                     playerSender.sendMessage("§aUstawiono " + setAmount + " serc graczowi " + setTarget.getName() + ".");
                     return true;
@@ -75,14 +79,17 @@ public class LifestealCommand implements CommandExecutor {
                         return true;
                     }
 
-                    Player reviveTarget = Bukkit.getPlayer(args[1]);
-                    if (reviveTarget == null) {
-                        playerSender.sendMessage(LangUtils.getMessage("player-offline"));
+                    OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[1]);
+                    UUID targetedUuid = targetPlayer.getUniqueId();
+
+                    if (!targetPlayer.hasPlayedBefore() && !targetPlayer.isOnline()) {
+                        playerSender.sendMessage(LangUtils.getMessage("player-not-found"));
                         return true;
                     }
 
-                    // TODO: Implementacja revive (np. usunięcie bana + teleport)
-                    playerSender.sendMessage("§aRevive jeszcze niezaimplementowane.");
+                    BanList banList = Bukkit.getBanList(BanList.Type.NAME);
+                    banList.pardon(targetPlayer.getName());
+                    LivesUtils.setHearts(targetedUuid, 10);
                     return true;
 
                 default:
