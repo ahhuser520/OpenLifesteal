@@ -33,6 +33,14 @@ public class LifestealCommand implements CommandExecutor {
         }
 
         String action = args[0];
+        
+        OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[1]);
+        UUID targetedUuid = targetPlayer.getUniqueId();
+
+        if (!targetPlayer.hasPlayedBefore() && !targetPlayer.isOnline()) {
+            playerSender.sendMessage(LangUtils.getMessage("player-not-found"));
+            return true;
+        } 
 
         try {
             switch (action.toLowerCase()) {
@@ -42,17 +50,11 @@ public class LifestealCommand implements CommandExecutor {
                         return true;
                     }
 
-                    Player giveTarget = Bukkit.getPlayer(args[1]);
-                    if (giveTarget == null) {
-                        playerSender.sendMessage(LangUtils.getMessage("player-offline"));
-                        return true;
-                    }
-
                     int giveAmount = Integer.parseInt(args[2]);
-                    int newHearts = LivesUtils.getHearts(giveTarget.getUniqueId()) + giveAmount;
-                    LivesUtils.setHearts(giveTarget.getUniqueId(), newHearts);
+                    int newHearts = LivesUtils.getHearts(targetedUuid) + giveAmount;
+                    LivesUtils.setHearts(targetedUuid, newHearts);
 
-                    playerSender.sendMessage("§aDodano " + giveAmount + " serc graczowi " + giveTarget.getName() + ".");
+                    playerSender.sendMessage("§aDodano " + giveAmount + " serc graczowi " + targetedUuid + ".");
                     return true;
 
                 case "set":
@@ -61,29 +63,15 @@ public class LifestealCommand implements CommandExecutor {
                         return true;
                     }
 
-                    Player setTarget = Bukkit.getPlayer(args[1]);
-                    if (setTarget == null) {
-                        playerSender.sendMessage(LangUtils.getMessage("player-offline"));
-                        return true;
-                    }
-
                     int setAmount = Integer.parseInt(args[2]);
-                    LivesUtils.setHearts(setTarget.getUniqueId(), setAmount);
+                    LivesUtils.setHearts(targetedUuid, setAmount);
 
-                    playerSender.sendMessage("§aUstawiono " + setAmount + " serc graczowi " + setTarget.getName() + ".");
+                    playerSender.sendMessage("§aUstawiono " + setAmount + " serc graczowi " + targetedUuid + ".");
                     return true;
 
                 case "revive":
                     if (args.length != 2) {
                         playerSender.sendMessage(LangUtils.getMessage("revive-usage"));
-                        return true;
-                    }
-
-                    OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[1]);
-                    UUID targetedUuid = targetPlayer.getUniqueId();
-
-                    if (!targetPlayer.hasPlayedBefore() && !targetPlayer.isOnline()) {
-                        playerSender.sendMessage(LangUtils.getMessage("player-not-found"));
                         return true;
                     }
 
