@@ -28,7 +28,7 @@ public class LifestealCommand implements CommandExecutor {
         }
 
         if (args.length < 1) {
-            playerSender.sendMessage(LangUtils.getMessage("invalid-usage"));
+            playerSender.sendMessage(LangUtils.getMessage("invalid-usage-lifesteal"));
             return true;
         }
 
@@ -78,10 +78,12 @@ public class LifestealCommand implements CommandExecutor {
                     BanList banList = Bukkit.getBanList(BanList.Type.NAME);
                     banList.pardon(targetPlayer.getName());
                     LivesUtils.setHearts(targetedUuid, 10);
+                    
+                    playerSender.sendMessage("§aOżywiono gracza " + targetedUuid + ".");
                     return true;
 
                 default:
-                    playerSender.sendMessage(LangUtils.getMessage("unknown-action"));
+                    playerSender.sendMessage(LangUtils.getMessage("unknown-action-lifesteal"));
                     return true;
             }
         } catch (Exception e) {

@@ -39,9 +39,9 @@ public class LangUtils {
         defaultMessages.put("max-hearts-reached", "§cMasz już maksymalną liczbę serc!");
         defaultMessages.put("heart-gained", "§aZyskałeś dodatkowe serce!");
         defaultMessages.put("only-players", "§cTa komenda może być używana tylko przez graczy.");
-        defaultMessages.put("invalid-usage", "§cUżyj: /lifesteal <give|set|revive> [argumenty]");
+        defaultMessages.put("invalid-usage-lifesteal", "§cUżyj: /lifesteal <give|set|revive> [argumenty]");
         defaultMessages.put("player-offline", "§cTen gracz jest offline.");
-        defaultMessages.put("unknown-action", "§cNieznana akcja. Użyj: /lifesteal <give|set|revive>");
+        defaultMessages.put("unknown-action-lifesteal", "§cNieznana akcja. Użyj: /lifesteal <give|set|revive>");
         defaultMessages.put("command-error", "§cWystąpił błąd: {error}");
         defaultMessages.put("give-usage", "§cUżyj: /lifesteal give {username} {amount}");
         defaultMessages.put("set-usage", "§cUżyj: /lifesteal set {username} {amount}");
